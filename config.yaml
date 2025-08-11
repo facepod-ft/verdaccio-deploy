@@ -1,45 +1,37 @@
-# Storage location for published packages
 storage: ./storage
 
-# Plugins directory (keep empty if no custom plugins)
 plugins: ./plugins
 
-# Package access rules
 packages:
   "@*/*":
-    access: $all        # Anyone can read
-    publish: $all       # Anyone can publish
-    unpublish: $authenticated # Only logged-in users can delete
+    access: $all
+    publish: $all
+    unpublish: $authenticated
 
   "**":
     access: $all
     publish: $all
     unpublish: $authenticated
 
-# Uplinks to npmjs (optional if you want proxying for missing packages)
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
     cache: true
     maxage: 30m
 
-# Web UI
 web:
   enable: true
   title: Turbo Verdaccio Registry
   logo: https://raw.githubusercontent.com/verdaccio/verdaccio/master/assets/logo/verdaccio.svg
 
-# Server listen settings
 listen:
   - 0.0.0.0:4873
 
-# Auth — no actual authentication for publishing
 auth:
   htpasswd:
     file: ./htpasswd
     max_users: -1
 
-# Security and CORS
 middlewares:
   audit:
     enabled: true
@@ -50,11 +42,9 @@ middlewares:
     preflightContinue: false
     optionsSuccessStatus: 204
 
-# Logging
 logs:
   - { type: stdout, format: pretty, level: http }
   - { type: file, format: pretty, level: http, path: ./verdaccio.log }
 
-# Performance
 max_body_size: 200mb
 uplink_timeout: 60s
